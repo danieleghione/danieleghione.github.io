@@ -51,10 +51,10 @@
         // Richiamo la funzione ScaricaCurriculum
         const curriculum = await contract.methods.ScaricaCurriculum().call();
         
-        // Creiamo un elemento a con l'output come URL e impostiamo l'attributo download
+        // Creiamo un elemento a con l'output come URL
         const link = document.createElement("a");
         link.href = curriculum;
-        link.download = "GhioneDaniele.pdf";
+        link.target = "_blank";
         link.click();
       }
     </script>
