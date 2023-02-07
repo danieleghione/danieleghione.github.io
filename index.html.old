@@ -3,7 +3,7 @@
     <script src="https://cdn.jsdelivr.net/npm/web3@1.3.0/dist/web3.min.js"></script>
     <script>
       // Connessione alla mainnet di Ethereum
-      const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/YOUR-PROJECT-ID"));
+      const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/d3982e10f32b40f9b64e34b0687ca0c9"));
       
       // ABI dello smart contract
       const abi = [
@@ -51,16 +51,14 @@
         // Richiamo la funzione ScaricaCurriculum
         const curriculum = await contract.methods.ScaricaCurriculum().call();
         
-        // Creiamo un elemento a con l'output come URL
-        const link = document.createElement("a");
-        link.href = curriculum;
-        link.target = "_blank";
-        link.click();
+        // Mostriamo l'output
+        document.getElementById("curriculum").innerHTML = curriculum;
       }
     </script>
   </head>
   <body>
     <button onclick="downloadCurriculum()">Scarica Curriculum</button>
+    <div id="curriculum"></div>
   </body>
 </html>
 
