@@ -1,1 +1,74 @@
-Hello World
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Interazione con Smart Contract</title>
+  </head>
+  <body>
+    <h1>Upload Curriculum</h1>
+    <input type="text" id="urlInput">
+    <button id="uploadButton">Upload</button>
+    <br><br>
+    <h1>Scarica Curriculum</h1>
+    <input type="text" id="contractAddress">
+    <button id="downloadButton">Download</button>
+    <br><br>
+    <div id="output"></div>
+
+    <!-- Web3.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.3.4/dist/web3.min.js"></script>
+    <script>
+      // Crea un'istanza di web3 con un provider metamask
+      const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+
+      // Riferimento ai bottoni nella pagina web
+      const uploadButton = document.getElementById("uploadButton");
+      const downloadButton = document.getElementById("downloadButton");
+
+      // Funzione che esegue l'upload del curriculum
+      uploadButton.addEventListener("click", function() {
+        // Prendi l'indirizzo del contratto
+        const contractAddress = "INSERIRE L'INDIRIZZO DEL CONTRATTO";
+
+        // Prendi l'istanza del contratto
+        const contract = new web3.eth.Contract(CONTRACT_ABI, contractAddress);
+
+        // Prendi l'input URL
+        const url = document.getElementById("urlInput").value;
+
+        // Chiamare la funzione uploadCurriculum
+        contract.methods
+          .uploadCurriculum(url)
+          .send({ from: web3.eth.defaultAccount })
+          .then(function(receipt) {
+            console.log("Upload eseguito con successo", receipt);
+          })
+          .catch(function(error) {
+            console.error("Errore nell'upload", error);
+          });
+      });
+
+      // Funzione che esegue il download del curriculum
+      downloadButton.addEventListener("click", function() {
+        // Prendi l'indirizzo del contratto
+        const contractAddress = document.getElementById("contractAddress").value;
+
+        // Prendi l'istanza del contratto
+        const contract = new web3.eth.Contract(CONTRACT_ABI, contractAddress);
+
+        // Chiamare la funzione downloadCurriculum
+        contract.methods
+          .downloadCurriculum()
+          .call()
+          .then(function(url) {
+            // Mostra il link del curriculum in una nuova scheda
+            window.open(url, "_blank");
+          })
+          .catch(function(error) {
+            console.error("Errore nel download", error);
+          });
+      });
+    </script>
+  </body>
+</html>
+
