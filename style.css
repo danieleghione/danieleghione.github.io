@@ -5,12 +5,15 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    margin: auto;
+    width: 640px; 
+    padding: 50px;
   }
 
   img {
-    width: 200px;
-    height: 200px;
-    margin-bottom: 20px;
+    width: 350px;
+    height: 350px;
+    margin-bottom: 100px;
   }
 
   button {
